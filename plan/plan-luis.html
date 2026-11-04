@@ -1,0 +1,583 @@
+<title>Plan de Luis</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one phone-width column; sticky tab bar; "Semana" is the home, each tab is a stack of focused blocks with details collapsed */
+:root{
+  --bg:#F1F3F5; --surface:#FFFFFF; --sunk:#E7EAEE; --line:#D3D8DE; --ink:#16202B; --muted:#5A6672;
+  --upper:#2456A6; --upper-soft:#DCE6F6; --lower:#B4520F; --lower-soft:#F8E4D3; --rest:#4F6B5B; --rest-soft:#DFEAE3;
+  --warn:#9A3A1A; --warn-soft:#F7E1D8; --ok:#2C7A4B;
+  --f-display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-num:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F151B; --surface:#171F27; --sunk:#1E2832; --line:#2C3843; --ink:#E6ECF1; --muted:#9AA7B3;
+  --upper:#8DB4F2; --upper-soft:#1C2C45; --lower:#F0A066; --lower-soft:#3A2516; --rest:#9CC3AC; --rest-soft:#1C2D24;
+  --warn:#F2A386; --warn-soft:#3A2119; --ok:#6CCB91; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F151B; --surface:#171F27; --sunk:#1E2832; --line:#2C3843; --ink:#E6ECF1; --muted:#9AA7B3;
+  --upper:#8DB4F2; --upper-soft:#1C2C45; --lower:#F0A066; --lower-soft:#3A2516; --rest:#9CC3AC; --rest-soft:#1C2D24;
+  --warn:#F2A386; --warn-soft:#3A2119; --ok:#6CCB91; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:640px;margin:0 auto}
+header.top{padding-block:22px 4px}
+h1{font-family:var(--f-display);font-weight:800;font-size:34px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.01em}
+.sub{color:var(--muted);font-size:14.5px;margin-top:4px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px 10px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;border-bottom:1px solid var(--line)}
+nav.tabs a{font-family:var(--f-display);font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.04em;text-align:center;text-decoration:none;color:var(--muted);padding:9px 4px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+nav.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--upper);outline-offset:2px}
+section.view{display:grid;gap:18px;padding-top:18px}
+h2{font-family:var(--f-display);font-weight:800;font-size:24px;text-transform:uppercase;margin:0;line-height:1.1;text-wrap:balance}
+h3{font-family:var(--f-display);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.03em;margin:0;color:var(--muted)}
+p{margin:0}
+.block{display:grid;gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-family:var(--f-display);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.t-upper{background:var(--upper-soft);color:var(--upper)}
+.t-lower{background:var(--lower-soft);color:var(--lower)}
+.t-rest{background:var(--rest-soft);color:var(--rest)}
+.t-warn{background:var(--warn-soft);color:var(--warn)}
+
+/* Week strip */
+.strip{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.strip .d{border-radius:10px;padding:8px 2px;text-align:center;background:var(--surface);border:1px solid var(--line);min-width:0}
+.strip .d b{display:block;font-family:var(--f-display);font-size:15px;text-transform:uppercase}
+.strip .d span{display:block;font-size:11.5px;line-height:1.2;margin-top:2px;color:var(--muted)}
+.strip .d.upper{background:var(--upper-soft);border-color:transparent}
+.strip .d.upper span{color:var(--upper)}
+.strip .d.lower{background:var(--lower-soft);border-color:transparent}
+.strip .d.lower span{color:var(--lower)}
+.strip .d.today{outline:2px solid var(--ink);outline-offset:1px}
+
+.today{display:grid;gap:8px}
+.today .big{font-family:var(--f-display);font-weight:800;font-size:28px;line-height:1.05;text-transform:uppercase}
+.btn{display:inline-block;font-family:var(--f-display);font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.04em;text-decoration:none;padding:9px 14px;border-radius:10px;background:var(--ink);color:var(--bg);border:0;cursor:pointer;justify-self:start}
+.rules{display:grid;gap:8px}
+.rule{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:baseline}
+.rule b{font-family:var(--f-display);font-size:15px;text-transform:uppercase;letter-spacing:.04em}
+
+/* Day picker */
+.daypick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.daypick button{font-family:var(--f-display);font-weight:700;font-size:15px;text-transform:uppercase;padding:8px 2px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;line-height:1.1}
+.daypick button small{display:block;font-family:var(--f-body);font-weight:500;font-size:12px;text-transform:none}
+.daypick button[aria-pressed="true"].upper{background:var(--upper);color:var(--surface);border-color:var(--upper)}
+.daypick button[aria-pressed="true"].lower{background:var(--lower);color:var(--surface);border-color:var(--lower)}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.warm{font-size:14.5px;color:var(--muted);border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+.warm b{color:var(--ink)}
+.exlist{display:grid;gap:8px;counter-reset:ex}
+.ex{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:26px 1fr;gap:4px 8px}
+.ex .n{font-family:var(--f-num);font-size:13px;color:var(--muted);padding-top:2px}
+.ex .name{font-weight:700;font-size:16.5px;line-height:1.25}
+.ex .presc{grid-column:2;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ex .sr{font-family:var(--f-num);font-weight:700;font-size:14px;background:var(--sunk);border-radius:7px;padding:2px 8px}
+.ex .rir{font-family:var(--f-num);font-size:13px;color:var(--muted)}
+.ex .note{grid-column:2;font-size:14px;color:var(--muted)}
+.ex .alt{grid-column:2;font-size:14px;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:6px 9px;margin-top:4px}
+.callout{border-radius:12px;padding:12px;background:var(--warn-soft);color:var(--ink);font-size:14.5px;display:grid;gap:4px}
+.callout b{color:var(--warn)}
+.mini{background:var(--rest-soft);border-radius:12px;padding:12px;font-size:14.5px}
+.mini b{color:var(--rest)}
+
+/* Tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-display);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:13px;color:var(--muted);background:var(--sunk)}
+td.r,th.r{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.cur td{background:var(--upper-soft)}
+
+/* Food */
+.kcal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kcal .k{border-radius:12px;padding:10px;min-width:0}
+.kcal .k b{display:block;font-family:var(--f-display);font-size:15px;text-transform:uppercase;letter-spacing:.04em}
+.kcal .k .v{font-family:var(--f-num);font-weight:700;font-size:22px;line-height:1.2}
+.kcal .k .m{font-family:var(--f-num);font-size:12px;line-height:1.4}
+.kcal .k .dd{font-size:12.5px;margin-top:4px}
+.k.lower{background:var(--lower-soft)} .k.lower b,.k.lower .v{color:var(--lower)}
+.k.upper{background:var(--upper-soft)} .k.upper b,.k.upper .v{color:var(--upper)}
+.k.rest{background:var(--rest-soft)} .k.rest b,.k.rest .v{color:var(--rest)}
+.hero-num{display:flex;gap:18px;flex-wrap:wrap}
+.hero-num div{display:grid}
+.hero-num .v{font-family:var(--f-num);font-weight:700;font-size:30px;line-height:1.1}
+.hero-num .l{font-size:13.5px;color:var(--muted)}
+.hands{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.hand{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;grid-template-columns:40px 1fr;gap:8px;align-items:center;min-width:0}
+.hand svg{width:40px;height:40px}
+.hand b{display:block;font-size:15px}
+.hand span{display:block;font-size:13px;color:var(--muted);line-height:1.3}
+.hand .q{font-family:var(--f-num);font-weight:700;color:var(--ink);font-size:13.5px}
+.hand.key{border:2px solid var(--ink)}
+.swap{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.swap .from{text-decoration:line-through;color:var(--muted);font-size:14.5px}
+.swap .arrow{font-family:var(--f-num);color:var(--muted)}
+.swap .to{font-weight:600;font-size:14.5px}
+.seg{display:inline-grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--sunk);padding:4px;border-radius:11px;justify-self:start}
+.seg button{font-family:var(--f-display);font-weight:700;text-transform:uppercase;font-size:14.5px;letter-spacing:.03em;padding:7px 12px;border-radius:8px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink)}
+.timeline{display:grid;gap:0}
+.tl{display:grid;grid-template-columns:58px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.tl:last-child{border-bottom:0}
+.tl .h{font-family:var(--f-num);font-size:14px;font-weight:700}
+.tl .w{min-width:0}
+.tl .p{font-family:var(--f-num);font-size:13px;color:var(--muted);white-space:nowrap}
+.tl.gym .h,.tl.gym .w{color:var(--upper);font-weight:600}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+details>summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:8px}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"+";font-family:var(--f-num);color:var(--muted)}
+details[open]>summary::after{content:"–"}
+details>.in{padding:0 14px 14px;display:grid;gap:8px;font-size:15px}
+ul.clean{margin:0;padding-left:18px;display:grid;gap:4px}
+.adj{display:grid;gap:6px}
+.adj .row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.adj .row .c{font-family:var(--f-num);font-weight:700;font-size:14px}
+.adj .row.up .c{color:var(--ok)} .adj .row.dn .c{color:var(--warn)}
+
+/* Calendar */
+.cal{display:grid;gap:6px}
+.wk{display:grid;grid-template-columns:44px 96px 1fr;gap:8px;align-items:baseline;padding:9px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.wk .w{font-family:var(--f-num);font-weight:700}
+.wk .dt{font-size:13px;color:var(--muted)}
+.wk .t{font-size:14.5px;min-width:0}
+.wk.deload{background:var(--rest-soft);border-color:transparent}
+.wk.cur{outline:2px solid var(--ink);outline-offset:1px}
+.wk.past{opacity:.6}
+@media (max-width:420px){.wk{grid-template-columns:40px 1fr}.wk .dt{grid-column:2}.wk .t{grid-column:1/-1}.rule{grid-template-columns:1fr;gap:0}.adj .row{grid-template-columns:1fr;gap:2px}.hands{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){nav.tabs a,.daypick button,.seg button{transition:background .15s,color .15s}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Plan de Luis</h1>
+    <div class="sub">Upper/Lower 4 días · lean bulk lento · inicio 9 nov 2026</div>
+  </header>
+
+  <nav class="tabs" aria-label="Secciones">
+    <a href="#semana" data-v="semana">Semana</a>
+    <a href="#rutina" data-v="rutina">Rutina</a>
+    <a href="#comida" data-v="comida">Comida</a>
+    <a href="#progreso" data-v="progreso">Progreso</a>
+  </nav>
+
+  <!-- SEMANA -->
+  <section class="view" id="v-semana">
+    <div class="card today" id="todayCard"></div>
+
+    <div class="block">
+      <h3>Tu semana</h3>
+      <div class="strip" id="strip"></div>
+      <p class="small muted">HIIT el domingo es opcional: 4–6 sprints, a 48 h del Lower B. Si el viernes no puedes, Lower B pasa al sábado o al domingo.</p>
+    </div>
+
+    <div class="block">
+      <h3>Las 4 reglas de cada sesión</h3>
+      <div class="card rules">
+        <div class="rule"><b>Esfuerzo</b><span>Termina cada serie con <b class="num">2</b> reps buenas en reserva (RIR 2) en los compuestos y <b class="num">1–2</b> en los aislamientos. En la semana 1, todo a RIR 3.</span></div>
+        <div class="rule"><b>Subir peso</b><span>Cuando hagas el tope del rango en <b>todas</b> las series, sube el peso la próxima vez.</span></div>
+        <div class="rule"><b>Descanso</b><span><span class="num">2–3 min</span> en compuestos, <span class="num">60–90 s</span> en el resto.</span></div>
+        <div class="rule"><b>Recorrido</b><span>Baja en 2–3 s y estira bien abajo. No recortes el recorrido: el estiramiento es donde más crece el músculo.</span></div>
+      </div>
+    </div>
+
+    <div class="mini"><b>Día sin ganas o sin tiempo:</b> haz los 3 primeros ejercicios del día, 2 series cada uno, unos 30 min. Cuenta como día cumplido.</div>
+  </section>
+
+  <!-- RUTINA -->
+  <section class="view" id="v-rutina" hidden>
+    <div class="daypick" id="daypick"></div>
+    <div class="dayhead"><h2 id="dTitle"></h2><span class="muted small" id="dMeta"></span></div>
+    <div class="warm" id="dWarm"></div>
+    <div class="exlist" id="dList"></div>
+    <div id="dExtra" class="block"></div>
+    <details>
+      <summary>Series por semana de cada músculo</summary>
+      <div class="in">
+        <div class="tbl"><table>
+          <thead><tr><th>Músculo</th><th class="r">Series</th><th>Nota</th></tr></thead>
+          <tbody>
+            <tr><td>Pecho</td><td class="r">12</td><td>Prioridad. Sube a 14 en la semana 4</td></tr>
+            <tr><td>Hombro lateral</td><td class="r">~10</td><td>Prioridad</td></tr>
+            <tr><td>Cuádriceps</td><td class="r">~12</td><td>Prioridad</td></tr>
+            <tr><td>Espalda</td><td class="r">~12</td><td>En los dos días de torso</td></tr>
+            <tr><td>Femoral</td><td class="r">~10</td><td></td></tr>
+            <tr><td>Glúteo</td><td class="r">~10</td><td>Sin hip thrust</td></tr>
+            <tr><td>Tríceps / bíceps</td><td class="r">~9</td><td>Suben en la semana 8</td></tr>
+            <tr><td>Pantorrilla / abdomen</td><td class="r">6</td><td></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- COMIDA -->
+  <section class="view" id="v-comida" hidden>
+    <div class="card block">
+      <div class="hero-num">
+        <div><span class="v">2,700</span><span class="l">kcal de media al día</span></div>
+        <div><span class="v">150 g</span><span class="l">proteína, todos los días</span></div>
+        <div><span class="v">+0.25</span><span class="l">lb por semana</span></div>
+      </div>
+    </div>
+
+    <div class="callout"><b>Semanas 1 y 2</b><span>Solo dos objetivos: comer en horario y llegar a la proteína, aunque no tengas hambre. Si la báscula sube de golpe, es el agua que perdiste estas semanas volviendo, no grasa.</span></div>
+
+    <div class="block">
+      <h3>Lo que vas a contar: tu mano</h3>
+      <div class="hands">
+        <div class="hand key">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="9" y="8" width="22" height="26" rx="8" fill="var(--upper)"/></svg>
+          <div><b>Palma de proteína</b><span>~25–30 g de proteína</span><span class="q">5 al día + 1 shake</span></div>
+        </div>
+        <div class="hand">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="21" r="12" fill="var(--lower)"/></svg>
+          <div><b>Puño de carbohidratos</b><span>arroz, papa, boniato, pan, fruta</span><span class="q">8–10, y 10–12 los días de pierna</span></div>
+        </div>
+        <div class="hand">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="21" r="12" fill="var(--rest)"/></svg>
+          <div><b>Puño de vegetales</b><span>ensalada, vegetal cocido</span><span class="q">3 o más</span></div>
+        </div>
+        <div class="hand">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="14" y="8" width="12" height="24" rx="6" fill="var(--muted)"/></svg>
+          <div><b>Pulgar de grasa</b><span>aceite, queso, maní, aguacate</span><span class="q">5–7</span></div>
+        </div>
+      </div>
+      <p class="small muted">Solo cuentas las palmas de proteína. Lo demás es orientativo: la báscula decide si hay que comer más o menos.</p>
+    </div>
+
+    <div class="block">
+      <h3>Los 2 cambios que más importan</h3>
+      <div class="card block">
+        <div class="swap"><span class="from">Jugo con galletas (noche)</span><span class="arrow">→</span><span class="to">Leche sin lactosa + pan o galletas con queso</span></div>
+        <div class="swap"><span class="from">Yogur con frutas (tarde)</span><span class="arrow">→</span><span class="to">Shake listo para tomar + boniato o fruta</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Tus horarios</h3>
+      <div class="seg" role="group" aria-label="Tipo de día">
+        <button id="segWork" aria-pressed="true">Día de trabajo</button>
+        <button id="segOff" aria-pressed="false">Día libre</button>
+      </div>
+      <div class="card timeline" id="timeline"></div>
+      <p class="small muted" id="tlNote"></p>
+    </div>
+
+    <div class="block">
+      <h3>Calorías por tipo de día</h3>
+      <div class="kcal">
+        <div class="k lower"><b>Pierna</b><span class="v">2,850</span><span class="m">P 150 · G 70<br>C 405</span><div class="dd">Mar · Vie</div></div>
+        <div class="k upper"><b>Torso</b><span class="v">2,700</span><span class="m">P 150 · G 70<br>C 365</span><div class="dd">Lun · Jue</div></div>
+        <div class="k rest"><b>Descanso</b><span class="v">2,600</span><span class="m">P 150 · G 85<br>C 310</span><div class="dd">Mié · Sáb · Dom</div></div>
+      </div>
+      <p class="small muted">Gramos de proteína (P), grasa (G) y carbohidratos (C). En porciones: los días de pierna suma 1–2 puños de carbohidrato y los de descanso 1 pulgar de grasa.</p>
+    </div>
+
+    <div class="block">
+      <h3>Más detalles</h3>
+      <details>
+        <summary>Con el plato de los roommates</summary>
+        <div class="in"><ul class="clean">
+          <li>1.5–2 palmas de la proteína que hayan hecho.</li>
+          <li>2–3 puños de arroz o del carbohidrato que haya.</li>
+          <li>La ensalada que quieras.</li>
+          <li>Si hay poca proteína, completa con tu cocción semanal o con un shake.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>Tu cocción semanal (1 vez)</summary>
+        <div class="in">
+          <p><b>Cerdo desmenuzado</b>: 3–4 lb de paleta o lomo en la olla de cocción lenta con mojo, 6–8 h. Salen unas 10 porciones de 30 g de proteína.</p>
+          <p><b>O picadillo</b>: carne molida 90/10 con sofrito y frijoles negros.</p>
+          <p class="muted">Hazlo para la casa: así es un aporte y no "cocinar aparte".</p>
+        </div>
+      </details>
+      <details>
+        <summary>3 comidas de emergencia (30 g o más)</summary>
+        <div class="in"><ul class="clean">
+          <li><b>Shake listo</b> de 30–42 g (Premier Protein o Fairlife Core Power) + plátano.</li>
+          <li><b>Wrap de pavo</b>: tortilla grande + 4 oz de pavo de deli + 2 lonchas de queso + mostaza (~35 g).</li>
+          <li><b>Bowl de microondas</b>: tu cerdo o picadillo + arroz + frijoles (~35 g).</li>
+          <li class="muted">Extra: la hervidora de huevos en el trabajo. Huevos picados con salsa picante, en tortilla o con galletas.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>Lista de compras</summary>
+        <div class="in">
+          <p><b>Costco:</b> whey isolate, caja de shakes listos, paleta o lomo de cerdo, carne molida 90/10, egg bites, huevos, queso en lonchas o barritas, leche sin lactosa, avena, arroz, vegetales congelados.</p>
+          <p><b>Publix:</b> pavo de deli, tortillas grandes, frijoles negros en lata, plátanos y fruta, boniato, pan, galletas, mantequilla de maní, salsa picante, tu jugo bajo en azúcar.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Suplementos y bebidas</summary>
+        <div class="in"><ul class="clean">
+          <li><b>Creatina</b>: 5 g todos los días, a cualquier hora. Tus tabletas valen si suman 5 g.</li>
+          <li><b>Whey isolate</b>: 1–2 scoops al día si hace falta para llegar a 150 g. Casi no tiene lactosa.</li>
+          <li><b>Café</b>: el último antes de las 2 p.m., para no robarte sueño profundo.</li>
+          <li><b>Petit y jugos</b>: no están prohibidos; mejor alrededor del entreno.</li>
+          <li class="muted">Nada más: ni quemadores, ni BCAA, ni "testosterona natural".</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>De dónde salen las 2,700 kcal</summary>
+        <div class="in">
+          <p>Mifflin-St Jeor: 10 × 74.8 kg + 6.25 × 180 cm − 5 × 30 + 5 ≈ <span class="num">1,730</span> kcal basales × 1.55 de actividad ≈ <span class="num">2,680</span>.</p>
+          <p>Llevas 6 meses estable comiendo unas 2,400–2,600 kcal, así que tomo <span class="num">~2,500</span> como mantenimiento y le sumo <span class="num">+200</span>.</p>
+          <p class="muted">La proteína está en 0.9 g/lb (2.0 g/kg). Por encima de ~1.6 g/kg la ganancia extra es pequeña; el margen cubre lo inexacto de las porciones de mano.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="block">
+      <h3>Cómo se ajusta (desde la semana 3)</h3>
+      <p class="small muted">Pésate en ayunas 3–4 mañanas por semana y usa el promedio. La cintura, a la altura del ombligo, cada 2 semanas.</p>
+      <div class="adj">
+        <div class="row up"><span class="c">&lt; 0.1 lb/sem</span><span>+150 kcal: un shake más o 1–2 puños de carbohidrato al día</span></div>
+        <div class="row"><span class="c">0.2–0.4 lb/sem</span><span>No cambies nada</span></div>
+        <div class="row dn"><span class="c">&gt; 0.5 lb/sem</span><span>−150 kcal: quita las galletas de la noche y deja la leche. Lo mismo si la cintura sube más de 0.5 in en un mes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESO -->
+  <section class="view" id="v-progreso" hidden>
+    <div class="block">
+      <h3>Cómo se sube de peso</h3>
+      <p>Trabajas dentro del rango de repeticiones. Cuando haces el tope en todas las series, subes el peso, y empiezas otra vez desde abajo.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Press banca 3 × 6–8</th><th class="r">Peso</th><th class="r">Reps</th><th>Qué haces</th></tr></thead>
+        <tbody>
+          <tr><td>Sesión 1</td><td class="r">145</td><td class="r">8 · 7 · 6</td><td>Mantienes</td></tr>
+          <tr><td>Sesión 2</td><td class="r">145</td><td class="r">8 · 8 · 7</td><td>Mantienes</td></tr>
+          <tr class="cur"><td>Sesión 3</td><td class="r">145</td><td class="r">8 · 8 · 8</td><td><b>La próxima, a 150</b></td></tr>
+          <tr><td>Sesión 4</td><td class="r">150</td><td class="r">7 · 6 · 6</td><td>Vuelves a subir reps</td></tr>
+        </tbody>
+      </table></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Equipo</th><th class="r">Cuánto subir</th></tr></thead>
+        <tbody>
+          <tr><td>Barra</td><td class="r">+5 lb</td></tr>
+          <tr><td>Mancuernas</td><td class="r">+5 lb</td></tr>
+          <tr><td>Máquinas</td><td class="r">1 placa o +5–10</td></tr>
+          <tr><td>Hack squat / prensa</td><td class="r">+10–20 lb</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">Para empezar: banca a ~135–145 lb y rumano con la barra sola o 65–75 lb, aprendiendo la técnica 2–3 semanas.</p>
+    </div>
+
+    <div class="block">
+      <h3>Las 12 semanas</h3>
+      <div class="cal" id="cal"></div>
+      <p class="small muted">Los ejercicios principales no cambian en las 12 semanas. Los accesorios solo rotan si se estancan, uno a la vez.</p>
+    </div>
+
+    <div class="block">
+      <h3>Si algo sale mal</h3>
+      <details>
+        <summary>Me estanqué 2 semanas en un ejercicio</summary>
+        <div class="in"><ul class="clean">
+          <li>Revisa primero el sueño (menos de 6.5 h), la proteína, si comiste poco y el estrés. La mayoría de los estancamientos vienen de ahí.</li>
+          <li>Si eso está bien, baja un 10% el peso y vuelve a subir.</li>
+          <li>Si se repite en un accesorio, cámbialo por su variante. Si es un ejercicio principal, lo vemos en el check-in.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>Me salté un día</summary>
+        <div class="in"><ul class="clean">
+          <li>Orden de prioridad: Upper A, Upper B, Lower A, Lower B.</li>
+          <li>Si pierdes el jueves, haz Upper B el viernes y Lower B el sábado o el domingo.</li>
+          <li>Si solo puedes 3 días: Upper A, Lower A (con 2 series de rumano al final) y Upper B.</li>
+          <li>No hagas 2 días de pierna seguidos para recuperar.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>Me molesta el hombro</summary>
+        <div class="in"><ul class="clean">
+          <li>Banca: cámbiala por mancuernas con agarre neutro o press en máquina.</li>
+          <li>Landmine: quítalo y suma 1 serie a las laterales.</li>
+          <li>Aperturas: recorta el recorrido abajo o pásalas a butterfly.</li>
+          <li>Si dura más de unos días o duele en reposo, que te lo vea un fisio.</li>
+        </ul></div>
+      </details>
+    </div>
+  </section>
+</div>
+
+<script>
+const START = new Date(2026, 10, 9); // lunes 9 nov 2026 = semana 1
+const DAYS = {
+  ua:{tab:"Upper A",dow:"Lun",type:"upper",title:"Upper A · Pecho primero",meta:"Lunes por la mañana · ~60 min",
+    warm:"<b>Calentamiento:</b> 3–5 min de bici o elíptica. Rotación externa con mancuerna de 5–10 lb, acostado de lado, 2×15 por brazo. Luego 2 series de aproximación del press banca.",
+    ex:[
+      ["Press banca plano con barra","3 × 6–8","RIR 2","Escápulas atrás y abajo, codos a ~45°, la barra toca la parte baja del pecho.","Si molesta el hombro: mancuernas con agarre neutro, o press en máquina."],
+      ["Jalón al pecho","3 × 8–12","RIR 2","Agarre a lo ancho de los hombros. Pecho alto, tira con los codos hacia el bolsillo."],
+      ["Aperturas inclinadas con mancuernas","3 × 10–12","RIR 1–2","Banco a 30°, codos un poco flexionados, estira sin dolor.","Si molesta abajo: recorta el recorrido o pásalas a butterfly."],
+      ["Remo en máquina con pecho apoyado","3 × 8–12","RIR 2","Pausa de 1 s atrás."],
+      ["Elevaciones laterales con mancuernas","4 × 12–15","RIR 1–2","Brazos un poco por delante del cuerpo, sube hasta la altura del hombro."],
+      ["Superserie: tríceps en polea con cuerda + curl con mancuernas","3 × 10–12","RIR 1–2","Uno tras otro sin descanso; luego 60–90 s. Es por la mañana: la polea suele estar libre."]
+    ]},
+  la:{tab:"Lower A",dow:"Mar",type:"lower",title:"Lower A · Cuádriceps",meta:"Martes por la mañana · ~50 min",
+    warm:"<b>Calentamiento:</b> 5 min de bici, 10 balanceos de pierna por lado y 2–3 series de aproximación del hack squat.",
+    ex:[
+      ["Hack squat","3 × 6–10","RIR 2","Pies a la mitad de la plataforma; baja hasta donde la pelvis siga pegada al respaldo.","Si molestan las almohadillas en hombros o cervical: prensa 3 × 8–12."],
+      ["Curl femoral sentado","3 × 8–12","RIR 1–2","Inclina el torso hacia delante para estirar más el femoral."],
+      ["Prensa","2 × 10–12","RIR 2","Baja hasta donde la cadera no se despegue del asiento."],
+      ["Extensión de cuádriceps","3 × 10–15","RIR 1","Pausa de 1 s arriba. La última serie, al fallo."],
+      ["Pantorrillas en la prensa","3 × 10–15","RIR 1","Pausa de 2 s abajo, en el estiramiento."],
+      ["Elevaciones de piernas acostado","3 × 10–15","RIR 1–2","Lumbar pegada al piso. Cuando hagas 3×15, pasa a elevaciones de rodillas colgado."]
+    ]},
+  ub:{tab:"Upper B",dow:"Jue",type:"upper",title:"Upper B · Hombro",meta:"Jueves después del trabajo · ~60 min · sin poleas",
+    warm:"<b>Calentamiento:</b> 3–5 min de bici. Rotación externa 2×15 por brazo. 2 series de aproximación del press en máquina.",
+    ex:[
+      ["Press de pecho en máquina","3 × 8–12","RIR 2","Asiento con las asas a la altura de la parte media o baja del pecho."],
+      ["Landmine press a una mano","3 × 8–12","RIR 2","De pie o arrodillado. Empuja hacia arriba y adelante, no vertical. Empieza con la barra sola.","Se parece al press que te molestó. Si aparece la misma molestia: quítalo y suma 1 serie a las laterales."],
+      ["Remo con mancuerna a una mano","3 × 8–12","RIR 2","Apoyado en banco. Tira hacia la cadera, no hacia el hombro."],
+      ["Butterfly (pec deck)","3 × 12–15","RIR 1","Estira bien atrás. La última serie, al fallo."],
+      ["Elevaciones laterales","4 × 12–15","RIR 1","En máquina si la hay; si no, mancuernas sentado. La última serie, al fallo."],
+      ["Pájaros en el pec deck invertido","3 × 12–20","RIR 1","En la misma máquina del butterfly: siéntate al revés."]
+    ]},
+  lb:{tab:"Lower B",dow:"Vie",type:"lower",title:"Lower B · Femoral y glúteo",meta:"Viernes después del trabajo · ~50 min",
+    warm:"<b>Calentamiento:</b> 5 min de bici y 2–3 series de rumano con poco peso.",
+    ex:[
+      ["Peso muerto rumano con barra","3 × 8–10","RIR 2–3","Cadera atrás, barra pegada a los muslos, espalda neutra. Baja hasta que estire el femoral.","Si lo notas en la lumbar y no en el femoral: mancuernas y menos recorrido, o extensión de espalda a 45°."],
+      ["Prensa con pies altos","3 × 10–12","RIR 2","Pies altos y un poco abiertos: más glúteo y femoral."],
+      ["Zancadas caminando con mancuernas","2 × 10–12 / pierna","RIR 2","Paso largo y torso un poco hacia delante."],
+      ["Curl femoral acostado","3 × 10–15","RIR 1","La última serie, al fallo."],
+      ["Pantorrillas sentado","3 × 12–15","RIR 1","Pausa abajo."],
+      ["Crunch en máquina o con mancuerna","3 × 10–15","RIR 1–2","Enrolla la columna, no tires del cuello."]
+    ]}
+};
+const ORDER = ["ua","la","ub","lb"];
+const WEEK = [ // Mon..Sun
+  {d:"Lun",s:"Upper A",c:"upper",k:"ua"},{d:"Mar",s:"Lower A",c:"lower",k:"la"},{d:"Mié",s:"Descanso",c:""},
+  {d:"Jue",s:"Upper B",c:"upper",k:"ub"},{d:"Vie",s:"Lower B",c:"lower",k:"lb"},{d:"Sáb",s:"Descanso",c:""},{d:"Dom",s:"HIIT opc.",c:""}
+];
+const CAL = [
+  [0,"5–6 nov","Opcional: Upper B y Lower B para calibrar pesos"],
+  [1,"9–15 nov","Todo a RIR 3. Anota los pesos en Hevy"],
+  [2,"16–22 nov","RIR normal"],
+  [3,"23–29 nov","Thanksgiving el jueves 26: mueve Upper B al miércoles o al viernes"],
+  [4,"30 nov–6 dic","Si progresas: +1 serie de aperturas y de butterfly"],
+  [5,"7–13 dic","Opción: laterales con mancuernas pasan a máquina"],
+  [6,"14–20 dic","Normal"],
+  [7,"21–27 dic","Deload: la mitad de las series, mismo peso, RIR 3–4"],
+  [8,"28 dic–3 ene","Bloque 2: +1 serie de bíceps y tríceps"],
+  [9,"4–10 ene","Normal"],
+  [10,"11–17 ene","Normal"],
+  [11,"18–24 ene","Normal"],
+  [12,"25–31 ene","Revisión completa: fotos, medidas y siguiente bloque"]
+];
+const MEALS = {
+  work:[
+    ["7:30","Café cubano",""],
+    ["9:00","Cafetería: huevo (porción doble) con corned beef o jamón, papa y una fruta","30 g"],
+    ["12:30","2 palmas de cerdo, pollo o res + 2 puños de arroz + frijoles + vegetal","40 g"],
+    ["15:30","Shake listo + palitos de boniato o fruta","30 g"],
+    ["18:00","Gym (jueves y viernes)","",true],
+    ["19:30","Cena en casa: 2 palmas de proteína + 2–3 puños de carbohidrato","40 g"],
+    ["22:00","1–2 vasos de leche sin lactosa + pan o galletas con queso","25 g"]
+  ],
+  off:[
+    ["7:30","Café + batido: whey + leche + plátano + ½ taza de avena","35 g"],
+    ["9:00","Gym (lunes y martes)","",true],
+    ["10:30","4 egg bites o 3 huevos revueltos + tostadas o papa + fruta","30 g"],
+    ["13:30","Cerdo, res o pollo + arroz y frijoles + maduros o boniato + ensalada","40 g"],
+    ["17:00","Wrap de pavo y queso, o shake","25 g"],
+    ["20:00","Cena en casa con 2 palmas de proteína","35 g"]
+  ]
+};
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const now = new Date();
+const dow = (now.getDay() + 6) % 7; // 0 = lunes
+const dayMs = 864e5;
+const weekNum = Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - START) / (7*dayMs)) + 1;
+
+function renderToday(){
+  const t = WEEK[dow];
+  const before = weekNum < 1;
+  let head, body, cta = "";
+  if (t.k) {
+    const D = DAYS[t.k];
+    head = `Hoy: ${D.tab}`;
+    body = `${esc(D.title.split("·")[1].trim())} · ${esc(D.meta)}`;
+    cta = `<a class="btn" href="#rutina" data-day="${t.k}">Ver la sesión</a>`;
+  } else {
+    let i = dow, n = 0; do { i = (i+1)%7; n++; } while(!WEEK[i].k);
+    const nx = WEEK[i];
+    head = dow === 6 ? "Hoy: HIIT opcional" : "Hoy: descanso";
+    body = dow === 6 ? "4–6 sprints, en bici o en cuesta. Si estás cansado, camina." : "Camina, estudia y come en horario.";
+    body += ` Próxima sesión: <b>${nx.s}</b> (${nx.d.toLowerCase()}${n===1?", mañana":""}).`;
+    cta = `<a class="btn" href="#rutina" data-day="${nx.k}">Ver ${esc(nx.s)}</a>`;
+  }
+  const wk = before ? `<span class="pill t-rest">Empieza el lunes 9 nov</span>` :
+    weekNum > 12 ? `<span class="pill t-warn">Bloque terminado: toca revisión</span>` :
+    `<span class="pill ${weekNum===7?"t-rest":"t-upper"}">Semana ${weekNum}${weekNum===7?" · deload":""}</span>`;
+  const note = before ? `<p class="small muted">Si quieres, este jueves y viernes haces Upper B y Lower B para calibrar pesos.</p>` :
+    (weekNum>=1 && weekNum<=12 ? `<p class="small muted">Esta semana: ${esc(CAL[weekNum][2])}.</p>` : "");
+  $("todayCard").innerHTML = `${wk}<div class="big">${esc(head)}</div><p>${body}</p>${note}${cta}`;
+}
+
+function renderStrip(){
+  $("strip").innerHTML = WEEK.map((w,i) => `<div class="d ${w.c}${i===dow?" today":""}"><b>${w.d}</b><span>${w.s}</span></div>`).join("");
+}
+
+let curDay = WEEK[dow].k || "ua";
+function renderDay(){
+  $("daypick").innerHTML = ORDER.map(k => `<button class="${DAYS[k].type}" aria-pressed="${k===curDay}" data-k="${k}">${DAYS[k].tab}<small>${DAYS[k].dow}</small></button>`).join("");
+  const D = DAYS[curDay];
+  $("dTitle").textContent = D.title;
+  $("dMeta").textContent = D.meta;
+  $("dWarm").innerHTML = D.warm;
+  $("dList").innerHTML = D.ex.map(([n,sr,rir,note,alt],i) => `
+    <div class="ex"><span class="n">${i+1}</span><span class="name">${esc(n)}</span>
+      <div class="presc"><span class="sr">${esc(sr)}</span><span class="rir">${esc(rir)}</span></div>
+      <div class="note">${esc(note)}</div>${alt?`<div class="alt">${esc(alt)}</div>`:""}</div>`).join("");
+  $("dExtra").innerHTML = `<div class="mini"><b>Versión mínima:</b> ${esc(D.ex.slice(0,3).map(e=>e[0].replace(/^Superserie: /,"")).join(", "))}. 2 series cada uno.</div>`;
+  $("daypick").querySelectorAll("button").forEach(b => b.onclick = () => { curDay = b.dataset.k; renderDay(); });
+}
+
+function renderMeals(kind){
+  $("segWork").setAttribute("aria-pressed", kind==="work");
+  $("segOff").setAttribute("aria-pressed", kind==="off");
+  $("timeline").innerHTML = MEALS[kind].map(([h,w,p,gym]) => `<div class="tl${gym?" gym":""}"><span class="h">${h}</span><span class="w">${esc(w)}</span><span class="p">${p}</span></div>`).join("");
+  $("tlNote").textContent = kind==="work"
+    ? "De jueves a domingo. El shake de las 15:30 es tu pre-entreno; la cena, tu post-entreno."
+    : "Lunes a miércoles. El miércoles es igual, pero sin gym.";
+}
+$("segWork").onclick = () => renderMeals("work");
+$("segOff").onclick = () => renderMeals("off");
+
+function renderCal(){
+  $("cal").innerHTML = CAL.map(([w,dt,t]) => {
+    const cls = ["wk"]; if (w===7) cls.push("deload"); if (w===weekNum) cls.push("cur"); if (weekNum>0 && w<weekNum) cls.push("past");
+    if (weekNum<1 && w===0) cls.push("cur");
+    return `<div class="${cls.join(" ")}"><span class="w">S${w}</span><span class="dt">${dt}</span><span class="t">${esc(t)}</span></div>`;
+  }).join("");
+}
+
+const VIEWS = ["semana","rutina","comida","progreso"];
+function show(){
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "semana";
+  VIEWS.forEach(x => $("v-"+x).hidden = x !== v);
+  document.querySelectorAll("nav.tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.v===v ? "page" : "false"));
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-day]");
+  if (a) { curDay = a.dataset.day; renderDay(); }
+});
+window.addEventListener("hashchange", () => { show(); window.scrollTo(0,0); });
+
+renderToday(); renderStrip(); renderDay(); renderMeals(dow<3?"off":"work"); renderCal(); show();
+</script>
