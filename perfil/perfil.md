@@ -41,7 +41,7 @@ Entrevista: 2026-11-04 (en curso)
 ## Gimnasio y equipo
 - Tiene: hack squat, landmine (barra fijada al piso con bisagra), máquina de press de pecho, máquina de press de hombro, jalón al pecho, curl femoral sentado y acostado, extensión de cuádriceps, remo con apoyo en el pecho, remo en polea sentado, prensa y mancuernas.
 - Butterfly / pec deck: lo usa y le funciona; quiere mantenerlo.
-- Poleas ajustables: solo 3 y siempre ocupadas → no basar el plan en ellas.
+- Poleas ajustables: solo 3 y siempre ocupadas, sobre todo en la tarde. Usarlas solo para tríceps (le funciona) y, si entrena por la mañana, para algo más.
 - **Pendiente:** máquina Smith y máquina de elevaciones laterales (no sabe identificarlas).
 
 ## Estado actual y preferencias
@@ -49,3 +49,25 @@ Entrevista: 2026-11-04 (en curso)
 - Abdomen: hace elevaciones de piernas acostado hasta 90°.
 - Le encanta el HIIT con sprints, ~1×/semana: 3–4 sprints con descanso hasta que baja la FC. Quiere mantenerlo.
 - No odia ningún ejercicio, aparte del hip thrust y de tener que esperar por las poleas.
+
+## Días de entrenamiento (preferencia)
+- Seguir de lunes a jueves le parece demasiado. Prefiere días alternos.
+- Lo que le ha funcionado: lunes y martes, descanso el miércoles, jueves y el 4.º día en el fin de semana. Ahora que el gym cierra más tarde, lo ve posible y quiere probar.
+
+## Comida
+- **Sí come pollo** (corrige el contexto inicial): los roommates cocinan pollo a menudo y él no controla el menú. Cocinan saludable y a diario.
+- Proteínas: le gusta mucho el cerdo. Res, moderado. Pavo y pescado, ~1×/semana. Frijoles y queso sin problema.
+- Huevo duro: le da asco el olor al abrir el recipiente horas después y lo necesita con dressing.
+- Intolerancia a la lactosa leve, no grave. Sin alergias.
+- Cuando está solo, come fuera: comida cubana o lo que haya en Miami.
+- **Día de trabajo típico:**
+  - Al levantarse: café cubano fuerte.
+  - ~9:00 (cafetería del hospital): huevo líquido / sustituto con corned beef y a veces papa. Western omelette ~1×/semana.
+  - Almuerzo (cafetería): pollo o cerdo con arroz y algo de vegetal, a veces ensalada.
+  - Tarde: algo ligero, por ejemplo yogur con frutas.
+  - Cena temprano en casa (lo que cocinen los roommates).
+  - Noche: jugo "cero azúcar" con galletas de sal o pan.
+- Gasta mucho en comida en el hospital (su mayor gasto después de la renta). Casa: $50–80/semana (dividido entre 3).
+- Café: 2/día (al levantarse y a mediodía o media tarde). Alcohol: rara vez. Refresco: Petit (Publix); abierto a probar otros.
+- Suplementos: creatina en tabletas, 5 g/día. Quiere proteína en polvo (más barata) o shakes listos para tomar.
+- Quiere guiarse por porciones de mano. Pesar la comida le parece demasiado, sobre todo porque come fuera a menudo.
