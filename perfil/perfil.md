@@ -28,8 +28,7 @@ Entrevista: 2026-11-04 (en curso)
 
 ## Horario
 - Hospital, turnos de 8 h de día (8:30 a.m.–5:00 p.m.), ~4 días/semana. Libres normalmente **lunes, martes y miércoles** (puede cambiar). Podría cambiar de trabajo; avisará.
-- Gym: cierra el viernes ~8 p.m., el sábado 7 p.m. y el domingo 6 p.m. Los fines de semana que trabaja casi no hay margen. Sale cansado y suele pasar por casa antes del gym.
-- **Pendiente:** horario del gym el jueves y entre semana.
+- Gym actual: abre hasta las 11 p.m. de lunes a jueves, hasta las 10 p.m. el viernes y hasta las 7 p.m. el sábado y el domingo. El fin de semana es difícil después del turno. Sale cansado y suele pasar por casa antes del gym.
 
 ## Estudios
 - Trabaja y estudia. Meta: 6–8 h de estudio cada día libre (hasta ahora no la ha cumplido).
@@ -38,3 +37,15 @@ Entrevista: 2026-11-04 (en curso)
 - Sueño: busca 7–8 h. Llega a 7 h ~60% de las noches; mínimo 6 h.
 - Estrés: elevado por una ruptura reciente. Tristeza y poca motivación algunos días.
 - Pasos: media de 6,650 el último mes, 8,000 la última semana, 7,200 en 6 meses y 7,900 en un año. Camina en el hospital y sale a caminar ~1 h para desestresarse.
+
+## Gimnasio y equipo
+- Tiene: hack squat, landmine (barra fijada al piso con bisagra), máquina de press de pecho, máquina de press de hombro, jalón al pecho, curl femoral sentado y acostado, extensión de cuádriceps, remo con apoyo en el pecho, remo en polea sentado, prensa y mancuernas.
+- Butterfly / pec deck: lo usa y le funciona; quiere mantenerlo.
+- Poleas ajustables: solo 3 y siempre ocupadas → no basar el plan en ellas.
+- **Pendiente:** máquina Smith y máquina de elevaciones laterales (no sabe identificarlas).
+
+## Estado actual y preferencias
+- Hombro: sin molestia hoy. Lo protege. Las dominadas no le molestan (baja controlado si lo nota).
+- Abdomen: hace elevaciones de piernas acostado hasta 90°.
+- Le encanta el HIIT con sprints, ~1×/semana: 3–4 sprints con descanso hasta que baja la FC. Quiere mantenerlo.
+- No odia ningún ejercicio, aparte del hip thrust y de tener que esperar por las poleas.
