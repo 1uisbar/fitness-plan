@@ -1,6 +1,6 @@
 # Perfil de Luis
 
-Entrevista: 2026-11-04 (en curso)
+Entrevista: 2026-11-04
 
 ## Punto de partida
 - 30 años, 5'11".
@@ -15,9 +15,10 @@ Entrevista: 2026-11-04 (en curso)
 - Prensa: 3–4 discos de 45 por lado × 8–10 (técnica sin confirmar).
 
 ## Metas
-- Prioridad: hombros, pecho, abdomen (que se vea) y piernas. Espalda en volumen moderado.
-- Quiere no acumular grasa en abdomen y caderas.
-- Estrategia tentativa: lean bulk lento (~0.25 lb/semana) vigilando la cintura; alternativa: recomposición en mantenimiento.
+- Verse más fuerte: **pecho, hombros y piernas** primero. Abdomen y brazos después, sin abandonarlos. Espalda en volumen moderado.
+- Sin fecha ni evento límite.
+- Ganancia elegida: **~0.25 lb/semana** (lean bulk lento). Quiere evitar acumular grasa en abdomen y cadera, y evitar estrías (le salen en glúteos y cintura).
+- Pierde peso con facilidad: bajó ~3–5 lb en los últimos 6 días por la ruptura (poco apetito). Primero hay que recuperar una ingesta estable.
 
 ## Lesiones y limitaciones
 - Sin condiciones médicas ni medicamentos relevantes.
@@ -47,6 +48,7 @@ Entrevista: 2026-11-04 (en curso)
 ## Estado actual y preferencias
 - Hombro: sin molestia hoy. Lo protege. Las dominadas no le molestan (baja controlado si lo nota).
 - Abdomen: hace elevaciones de piernas acostado hasta 90°.
+- Casi nunca corre suave: hace HIIT o camina.
 - Le encanta el HIIT con sprints, ~1×/semana: 3–4 sprints con descanso hasta que baja la FC. Quiere mantenerlo.
 - No odia ningún ejercicio, aparte del hip thrust y de tener que esperar por las poleas.
 
@@ -71,3 +73,8 @@ Entrevista: 2026-11-04 (en curso)
 - Café: 2/día (al levantarse y a mediodía o media tarde). Alcohol: rara vez. Refresco: Petit (Publix); abierto a probar otros.
 - Suplementos: creatina en tabletas, 5 g/día. Quiere proteína en polvo (más barata) o shakes listos para tomar.
 - Quiere guiarse por porciones de mano. Pesar la comida le parece demasiado, sobre todo porque come fuera a menudo.
+
+## Logística
+- En el trabajo tiene nevera y microondas. Valora comprar una hervidora de huevos pequeña para usarla allí.
+- Está dispuesto a cocinar una cosa sencilla por semana; quiere hacerlo sin incomodar a los roommates.
+- Registro: Hevy (suscripción hasta julio de 2027). Check-in semanal aquí.
